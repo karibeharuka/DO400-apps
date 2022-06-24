@@ -1,4 +1,4 @@
-pipeline{
+/*pipeline{
     agent{
         label "nodejs"
     }
@@ -23,4 +23,21 @@ pipeline{
 
         // Add the "Deploy" stage here
     }
+}*/
+
+pipeline{
+    agent any
+
+    stages{
+        stage('Deploy') {
+            steps {
+                sh '''
+                oc project embixp-deploy-strategies
+                oc start-build greeting-service --follow --wait
+                '''
+            }
+        }
+    }
+
 }
+
